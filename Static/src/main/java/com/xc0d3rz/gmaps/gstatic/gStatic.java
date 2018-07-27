@@ -1,11 +1,15 @@
 package com.xc0d3rz.gmaps.gstatic;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -41,7 +45,8 @@ public class gStatic {
     public static String gMapsKey = "";
 
 
-    /**'
+    /**
+     * '
      *
      * @param origin
      * @param destination
@@ -49,6 +54,7 @@ public class gStatic {
      * @return
      */
     public static String getMap(String origin, String destination, List<String> waypoints) {
+        String $final = "";
         String urlDirection = String.valueOf(DirectionAPI).replace("$A", String.valueOf(origin)).replace("$B", String.valueOf(destination)).replace("$C", implode(waypoints, "|"));
         try {
             JSONObject directionResults = getJSONObjectFromURL(urlDirection);
@@ -64,6 +70,32 @@ public class gStatic {
             e.printStackTrace();
         }
         return "https://maps.googleapis.com/maps/api/staticmap?center=Khartoum,+SD&zoom=13&scale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
+    }
+
+    /**
+     * @param origin
+     * @param destination
+     * @param waypoints
+     * @return
+     */
+    public static Bitmap getMapAsBitmap(String origin, String destination, List<String> waypoints) {
+        String $final = "";
+        String urlDirection = String.valueOf(DirectionAPI).replace("$A", String.valueOf(origin)).replace("$B", String.valueOf(destination)).replace("$C", implode(waypoints, "|"));
+        try {
+            JSONObject directionResults = getJSONObjectFromURL(urlDirection);
+            JSONArray routesArray = directionResults.getJSONArray("routes");
+            JSONObject route = routesArray.getJSONObject(0);
+            JSONObject overviewPolyline = route.getJSONObject("overview_polyline");
+            String routePath = overviewPolyline.getString("points");
+            $final = String.valueOf(StaticAPI).replace("$A", mapSize).replace("$B", routePath) + "&markers=icon:" + sMarker + "%7C" + origin +
+                    "&markers=icon:" + eMarker + "%7C" + destination + "&key=" + gMapsKey;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        $final = "https://maps.googleapis.com/maps/api/staticmap?center=Khartoum,+SD&zoom=13&scale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
+        return getBitmapFromURL($final);
     }
 
     /**
@@ -113,4 +145,23 @@ public class gStatic {
         return builder.toString();
     }
 
+    /**
+     * @param src
+     * @return
+     */
+    private static Bitmap getBitmapFromURL(String src) {
+        try {
+
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
