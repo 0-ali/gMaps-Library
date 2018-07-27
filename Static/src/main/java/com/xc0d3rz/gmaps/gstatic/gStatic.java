@@ -87,15 +87,14 @@ public class gStatic {
             JSONObject route = routesArray.getJSONObject(0);
             JSONObject overviewPolyline = route.getJSONObject("overview_polyline");
             String routePath = overviewPolyline.getString("points");
-            $final = String.valueOf(StaticAPI).replace("$A", mapSize).replace("$B", routePath) + "&markers=icon:" + sMarker + "%7C" + origin +
-                    "&markers=icon:" + eMarker + "%7C" + destination + "&key=" + gMapsKey;
+            return getBitmapFromURL(String.valueOf(StaticAPI).replace("$A", mapSize).replace("$B", routePath) + "&markers=icon:" + sMarker + "%7C" + origin +
+                    "&markers=icon:" + eMarker + "%7C" + destination + "&key=" + gMapsKey);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        $final = "https://maps.googleapis.com/maps/api/staticmap?center=Khartoum,+SD&zoom=13&scale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true";
-        return getBitmapFromURL($final);
+        return getBitmapFromURL("https://maps.googleapis.com/maps/api/staticmap?center=Khartoum,+SD&zoom=13&scale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true");
     }
 
     /**
