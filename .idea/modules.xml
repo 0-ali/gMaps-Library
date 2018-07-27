@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Static/StaticMaps.iml" filepath="$PROJECT_DIR$/Static/StaticMaps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Static/Static.iml" filepath="$PROJECT_DIR$/Static/Static.iml" />
+      <module fileurl="file://E:\Mobile APP\android\gMaps\Static\StaticMaps.iml" filepath="E:\Mobile APP\android\gMaps\Static\StaticMaps.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/gMaps.iml" filepath="$PROJECT_DIR$/gMaps.iml" />
     </modules>
