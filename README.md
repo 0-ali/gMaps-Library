@@ -50,3 +50,6 @@ Get the static map URL only
         Mylist.add("44.8843778,-0.1368667");
         Log.i("gStatic",gStatic.getMap("45.291002,-0.868131", "44.683159,-0.405704", Mylist)); //staticMap URL
 ```
+
+### Thanks
+Special Thanks to @[amolood](https://github.com/amolood) ♥
