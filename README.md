@@ -51,5 +51,5 @@ Get the static map URL only
         Log.i("gStatic",gStatic.getMap("45.291002,-0.868131", "44.683159,-0.405704", Mylist)); //staticMap URL
 ```
 
-### Thanks
-Special Thanks to @[amolood](https://github.com/amolood) ♥
+### Special Thanks
+Special Thanks to @[amolood] (https://github.com/amolood) ♥
